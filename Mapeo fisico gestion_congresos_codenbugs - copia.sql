@@ -105,3 +105,14 @@ CONSTRAINT fk_codigo_congreso_inscripcion FOREIGN KEY (codigo_congreso) REFERENC
   ALTER TABLE congreso
   ADD CONSTRAINT fk_institucion_congreso FOREIGN KEY (institucion) REFERENCES institucion(nombre_institucion),
   ADD CONSTRAINT fk_instalacion FOREIGN KEY (instalacion) REFERENCES instalacion(nombre);
+  
+  ALTER TABLE actividad
+  ADD COLUMN cupo_reservado BOOLEAN NOT NULL;
+  
+  CREATE TABLE IF NOT EXISTS taller(
+  codigo_actividad VARCHAR(20) NOT NULL,
+  cupo_maximo INT NOT NULL,
+  cupo_disponibke INT NOT NULL,
+  CONSTRAINT pk_codigo_actividad_taller PRIMARY KEY(codigo_actividad),
+  CONSTRAINT fk_codigo_actividad_taller FOREIGN KEY(codigo_actividad) REFERENCES actividad(codigo_actividad)
+  );
