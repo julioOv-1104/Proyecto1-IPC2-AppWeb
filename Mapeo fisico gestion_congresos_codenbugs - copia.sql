@@ -5,7 +5,7 @@ USE gestion_congresos_codenbugs;
 
 CREATE TABLE IF NOT EXISTS usuario (
     id VARCHAR(20) NOT NULL,
-    institucion VARCHAR(100) NOT NULL,
+    institucion VARCHAR(100),
     nombre VARCHAR(100) NOT NULL,
     numero_telefonico VARCHAR(10) NOT NULL,
     correo VARCHAR(100) NOT NULL,
