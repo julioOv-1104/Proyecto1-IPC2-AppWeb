@@ -35,7 +35,7 @@ public class ConexionBD {
     public static ConexionBD getInstancia() {
 
         if (instancia == null) {
-            instancia = ConexionBD.getInstancia();
+            instancia = new ConexionBD();
         }
         return instancia;
     }

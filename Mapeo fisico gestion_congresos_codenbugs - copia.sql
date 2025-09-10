@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     monedero double NOT NULL DEFAULT 0,
     foto VARCHAR(100),
     tipo_usuario ENUM('ADMIN_CONGRESO','ADMIN_SISTEMA','PATICIPANTE') NOT NULL,
+    password VARCHAR(20) NOT NULL,
     CONSTRAINT pk_usuario PRIMARY KEY (id)
 );
 
@@ -47,14 +48,18 @@ CONSTRAINT fk_id_encargado FOREIGN KEY (id_encargado) REFERENCES usuario(id)
 CREATE TABLE IF NOT EXISTS inscripcion(
 codigo_congreso VARCHAR(20) NOT NULL,
 costo double NOT NULL DEFAULT 35,
-CONSTRAINT fk_codigo_congreso_inscripcion FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso)
+id_usuario VARCHAR(100) NOT NULL,
+CONSTRAINT fk_codigo_congreso_inscripcion FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso),
+CONSTRAINT fk_id_usuario_inscripcion FOREIGN KEY (id_usuario) REFERENCES usuario(id)
  );
  
  Create TABLE IF NOT EXISTS pago(
  codigo_congreso VARCHAR(20) NOT NULL,
  fecha DATE NOT NULL,
  monto double NOT NULL,
- CONSTRAINT fk_codigo_congreso_pago FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso)
+ id_usuario VARCHAR(100) NOT NULL,
+ CONSTRAINT fk_codigo_congreso_pago FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso),
+ CONSTRAINT fk_id_usuario_pago FOREIGN KEY (id_usuario) REFERENCES usuario(id)
   );
  
  
@@ -76,7 +81,7 @@ CONSTRAINT fk_codigo_congreso_inscripcion FOREIGN KEY (codigo_congreso) REFERENC
  
  CREATE TABLE IF NOT EXISTS instalacion(
  nombre VARCHAR(100) NOT NULL,
- codigo_congreso VARCHAR(20) NOT NULL,
+ codigo_congreso VARCHAR(20),
  CONSTRAINT pk_nombre PRIMARY KEY (nombre),
  CONSTRAINT fk_codigo_congreso_instalacion FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso)
  );
@@ -105,9 +110,7 @@ CONSTRAINT fk_codigo_congreso_inscripcion FOREIGN KEY (codigo_congreso) REFERENC
   ALTER TABLE congreso
   ADD CONSTRAINT fk_institucion_congreso FOREIGN KEY (institucion) REFERENCES institucion(nombre_institucion),
   ADD CONSTRAINT fk_instalacion FOREIGN KEY (instalacion) REFERENCES instalacion(nombre);
-  
-  ALTER TABLE actividad
-  ADD COLUMN cupo_reservado BOOLEAN NOT NULL;
+
   
   CREATE TABLE IF NOT EXISTS taller(
   codigo_actividad VARCHAR(20) NOT NULL,
@@ -116,3 +119,15 @@ CONSTRAINT fk_codigo_congreso_inscripcion FOREIGN KEY (codigo_congreso) REFERENC
   CONSTRAINT pk_codigo_actividad_taller PRIMARY KEY(codigo_actividad),
   CONSTRAINT fk_codigo_actividad_taller FOREIGN KEY(codigo_actividad) REFERENCES actividad(codigo_actividad)
   );
+  
+  CREATE TABLE IF NOT EXISTS reserva(
+  id_usuario VARCHAR(100) NOT NULL,
+  codigo_congreso VARCHAR(20) NOT NULL,
+  codigo_actividad VARCHAR(20) NOT NULL,
+  CONSTRAINT fk_id_usuario_reserva FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+  CONSTRAINT fk_codigo_congreso_reserva FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso),
+  CONSTRAINT fk_codigo_actividad_reserva FOREIGN KEY (codigo_actividad) REFERENCES actividad(codigo_actividad)
+  );
+  
+  GRANT ALL PRIVILEGES ON gestion_congresos_codenbugs.* TO 'universal'@'localhost';
+  FLUSH PRIVILEGES;
