@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/Usuario/OneDrive/Documents/Proyecto_1_IPC2_JulioOvalle/Proyecto_1_AplicacionWeb_IPC2/src/java/Paquete_Servlets/ConexionBD.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documents/Proyecto_1_IPC2_JulioOvalle/Proyecto_1_AplicacionWeb_IPC2/src/java/Paquete_Servlets/mainDePrueba.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documents/Proyecto_1_IPC2_JulioOvalle/Proyecto_1_AplicacionWeb_IPC2/src/java/Entidades/Usuario.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Documents/Proyecto_1_IPC2_JulioOvalle/Proyecto_1_AplicacionWeb_IPC2/web/index.html</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Documents/Proyecto_1_IPC2_JulioOvalle/Proyecto_1_AplicacionWeb_IPC2/src/java/DAOS/UsuarioDAO.java</file>
         </group>
     </open-files>
 </project-private>
