@@ -16,7 +16,7 @@
                 padding: 5px 30px;
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
-                height: 500px;
+                height: 550px;
             }
         </style>
 
@@ -46,7 +46,14 @@
             <input type="text" name="FOTO">
 
             <label>Contraseña</label>
-            <input type="text" name="Contraseña"><br>
+            <input type="text" name="Contraseña">
+
+            <label>Tipo de usuario</label>
+            <select name="tipoUsuario">
+                <option value="ADMIN_SISTEMA">Administrador del sistema</option>
+                <option value="ADMIN_CONGRESO">Administrador de congresos</option>
+                <option value="PARTICIPANTE">Participante</option>
+            </select><br>
             
             <button>Registrar</button>
         </form>

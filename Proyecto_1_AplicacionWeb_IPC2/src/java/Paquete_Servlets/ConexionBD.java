@@ -20,9 +20,10 @@ public class ConexionBD {
     private ConexionBD() {
 
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
             conexionbd = DriverManager.getConnection(URL, USER, PASSWORD);
             System.out.println("Coneccion realizada con exito");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Error con conexion a la BD");
             e.printStackTrace();
         }

@@ -11,11 +11,6 @@ import java.sql.PreparedStatement;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
-    Connection conn;
-
-    public LoginServlet() {
-        this.conn = ConexionBD.getInstancia().getConexionbd();
-    }
        
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -25,7 +20,7 @@ public class LoginServlet extends HttpServlet{
         String idUsuario = request.getParameter("userID");
         String contraseña = request.getParameter("userPassword");
         
-        try {
+        try (Connection conn  = ConexionBD.getInstancia().getConexionbd();){
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, idUsuario);
             ps.setString(2, contraseña);
