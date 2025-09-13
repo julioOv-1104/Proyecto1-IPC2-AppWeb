@@ -7,11 +7,11 @@ CREATE TABLE IF NOT EXISTS usuario (
     id VARCHAR(20) NOT NULL,
     institucion VARCHAR(100),
     nombre VARCHAR(100) NOT NULL,
-    numero_telefonico VARCHAR(10) NOT NULL,
+    numero_telefonico VARCHAR(20) NOT NULL,
     correo VARCHAR(100) NOT NULL,
     monedero double NOT NULL DEFAULT 0,
     foto VARCHAR(100),
-    tipo_usuario ENUM('ADMIN_CONGRESO','ADMIN_SISTEMA','PATICIPANTE') NOT NULL,
+    tipo_usuario ENUM('ADMIN_CONGRESO','ADMIN_SISTEMA','PARTICIPANTE') NOT NULL,
     password VARCHAR(20) NOT NULL,
     CONSTRAINT pk_usuario PRIMARY KEY (id)
 );
@@ -24,7 +24,7 @@ CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 
 CREATE TABLE IF NOT EXISTS congreso(
-codigo_congreso VARCHAR(20) NOT NULL,
+codigo_congreso VARCHAR(20),
 fecha_inicio DATE NOT NULL,
 precio DOUBLE NOT NULL,
 CONSTRAINT pk_codigo_congreso PRIMARY KEY (codigo_congreso)

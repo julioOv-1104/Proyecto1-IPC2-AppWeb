@@ -1,33 +1,34 @@
-
 package Paquete_Servlets;
 
-import com.mysql.cj.jdbc.PreparedStatementWrapper;
+import DAOS.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import java.sql.Connection;
 import java.io.IOException;
-import java.sql.PreparedStatement;
+import java.util.Base64;
 
 @WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet{
-       
+public class LoginServlet extends HttpServlet {
+
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        
-        String sql ="SELECT 1 FROM usuario WHERE id = ? AND password = ?;";
-        
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String idUsuario = request.getParameter("userID");
         String contraseña = request.getParameter("userPassword");
-        
-        try (Connection conn  = ConexionBD.getInstancia().getConexionbd();){
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, idUsuario);
-            ps.setString(2, contraseña);
-            ps.executeUpdate();
-        } catch (Exception e) {
+
+        String contraseñaCodificada = Base64.getEncoder().encodeToString(contraseña.getBytes());
+        System.out.println("CONTRASEÑA CODIFICADA EN LOGIN " + contraseñaCodificada);
+
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        if (usuarioDao.iniciarSesion(idUsuario, contraseñaCodificada)) {
+            //Si devuelve true es porque si existe ese usuario con esa contraseña
+
+        } else {
+            request.setAttribute("mensajeError", "Contraeña o ID invalido");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+            return;
         }
- 
+
     }
-    
+
 }
