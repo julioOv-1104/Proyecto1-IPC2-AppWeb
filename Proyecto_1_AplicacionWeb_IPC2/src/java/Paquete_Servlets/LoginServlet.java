@@ -1,6 +1,7 @@
 package Paquete_Servlets;
 
 import DAOS.*;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -22,11 +23,43 @@ public class LoginServlet extends HttpServlet {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         if (usuarioDao.iniciarSesion(idUsuario, contraseñaCodificada)) {
             //Si devuelve true es porque si existe ese usuario con esa contraseña
+            autenticarTipoUsuario(idUsuario, contraseñaCodificada, request, response);
 
         } else {
             request.setAttribute("mensajeError", "Contraeña o ID invalido");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
             return;
+        }
+
+    }
+
+    private void autenticarTipoUsuario(String idUsuario, String contraseña, HttpServletRequest request, HttpServletResponse response) {
+
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        String tipo = usuarioDao.obtenerTipoUsuario(idUsuario, contraseña);
+
+        try {
+
+            if (tipo.equals("ADMIN_SISTEMA")) {
+                
+                AdminSistemaServlet admin = new AdminSistemaServlet();
+                admin.mostrarInformacion(request, response);
+                //request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
+
+            } else if (tipo.equals("ADMIN_CONGRESO")) {
+
+
+                 request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+
+            } else if (tipo.equals("PARTICIPANTE")) {
+                
+                 request.getRequestDispatcher("VistaParticipante.jsp").forward(request, response);
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL REDIRIGIR AL USUARIO");
+            e.printStackTrace();
         }
 
     }

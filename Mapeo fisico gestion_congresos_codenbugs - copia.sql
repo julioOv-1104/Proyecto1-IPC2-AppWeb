@@ -24,7 +24,7 @@ CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 
 CREATE TABLE IF NOT EXISTS congreso(
-codigo_congreso VARCHAR(20),
+codigo_congreso VARCHAR(20) NOT NULL,
 fecha_inicio DATE NOT NULL,
 precio DOUBLE NOT NULL,
 CONSTRAINT pk_codigo_congreso PRIMARY KEY (codigo_congreso)
@@ -128,6 +128,15 @@ CONSTRAINT fk_id_usuario_inscripcion FOREIGN KEY (id_usuario) REFERENCES usuario
   CONSTRAINT fk_codigo_congreso_reserva FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso),
   CONSTRAINT fk_codigo_actividad_reserva FOREIGN KEY (codigo_actividad) REFERENCES actividad(codigo_actividad)
   );
+  
+  CREATE TABLE IF NOT EXISTS configuracion_ganancia(
+  id INT NOT NULL DEFAULT 1,
+  total_recaudado DOUBLE DEFAULT 0.0,
+  total_ganancia DOUBLE DEFAULT 0.0,
+  porcentaje_comision DOUBLE DEFAULT 0.1
+  );
+  
+  INSERT INTO configuracion_ganancia (id, total_recaudado, total_ganancia, porcentaje_comision) VALUES (1, 0.0, 0.0, 0.1);
   
   GRANT ALL PRIVILEGES ON gestion_congresos_codenbugs.* TO 'universal'@'localhost';
   FLUSH PRIVILEGES;

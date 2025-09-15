@@ -31,7 +31,7 @@ public class UsuarioDAO {
 
         return false;
     }
-    
+
     public boolean existeID(Usuario nuevoUsuario) {
 
         String consulta = "SELECT 1 FROM usuario WHERE id = ?";
@@ -83,29 +83,55 @@ public class UsuarioDAO {
         }
 
     }
-    
-    public boolean iniciarSesion(String id, String contraseña){
-    
-    String sql ="SELECT 1 FROM usuario WHERE id = ? AND password = ?;";
-        
-        
-        try (Connection conn  = ConexionBD.getInstancia().getConexionbd();){
+
+    public boolean iniciarSesion(String id, String contraseña) {
+
+        String sql = "SELECT 1 FROM usuario WHERE id = ? AND password = ?;";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+
+        try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             ps.setString(2, contraseña);
             ResultSet rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 System.out.println("SI EXISTE EL USUARIO CON ESA CONTRASEÑA");
                 return true;
-            }else{
+            } else {
                 System.out.println("NO EXISTE EL USUARIO CON ESA CONTRASEÑA");
-                
+
             }
-            
+
         } catch (Exception e) {
         }
         return false;
+    }
+
+    public String obtenerTipoUsuario(String idUsuario, String contraseña) {
+        String tipoEncontrado = "";
+
+        String consulta = "SELECT tipo_usuario FROM usuario WHERE id = ? AND password = ?";
+
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(consulta);
+
+            ps.setString(1, idUsuario);
+            ps.setString(2, contraseña);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                tipoEncontrado = rs.getString("tipo_usuario");
+                
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR AL AUTENTICAR TIPO USUARIO");
+            e.printStackTrace();
+        }
+        return tipoEncontrado;
     }
 
 }

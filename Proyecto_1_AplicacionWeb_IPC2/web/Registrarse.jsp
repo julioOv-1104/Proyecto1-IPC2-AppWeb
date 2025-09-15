@@ -58,7 +58,7 @@
             <select name="tipoUsuario">
                 <option value="PARTICIPANTE">Participante</option>
                 <option value="ADMIN_CONGRESO">Administrador de congresos</option>
-                <option value="ADMIN_SISTEMA">Administrador del sistemacipante</option>
+                <option value="ADMIN_SISTEMA">Administrador del sistema</option>
             </select>
 
             <button>Registrar</button><br>

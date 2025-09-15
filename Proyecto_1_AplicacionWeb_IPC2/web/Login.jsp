@@ -12,7 +12,7 @@
         <link rel="stylesheet" type="text/css" href="CSS/estilo.css"/><!-- se agrega el estilo -->
         <title>Login Sistema congresos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <style>
 
             form{
@@ -20,12 +20,13 @@
                 padding: 5px 30px;
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
-                height: 250px;
+                height: 300px;
             }
         </style>
-        
+
     </head>
     <body>
+        <h1>Bienvenido al sistema de gestion de congresos de Code ´n Bugs</h1>
         <form action="LoginServlet" method="post" id="loginForm">
             <h2>Inciar sesion</h2>
 
@@ -40,8 +41,8 @@
 
 
         </form>
-        
-        
+
+
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -66,7 +67,7 @@
             </div>
         </div>
 
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
         <% if (request.getAttribute("mensajeError") != null) { %>
@@ -75,6 +76,6 @@
             myModal.show();
         </script>
         <% } %>
-        
+
     </body>
 </html>
