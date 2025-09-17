@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR AL REDIRIGIR AL USUARIO");
+            System.out.println("ERROR AL REDIRIGIR AL USUARIO " +e.getMessage());
             e.printStackTrace();
         }
 

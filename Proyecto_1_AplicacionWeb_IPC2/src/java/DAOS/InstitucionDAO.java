@@ -13,24 +13,25 @@ public class InstitucionDAO {
         List<Institucion> lista = new ArrayList<>();
         String sql = "SELECT codigo_congreso, id_administrador, nombre_institucion FROM institucion";
         Connection conn = ConexionBD.getInstancia().getConexionbd();
-        
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
+
+            while (rs.next()) {
                 String congreso = rs.getString("codigo_congreso");
                 String admin = rs.getString("id_administrador");
                 String nombre = rs.getString("nombre_institucion");
-                
+
                 Institucion nueva = new Institucion(admin, nombre);
-                if (!congreso.isBlank()) {
-                    nueva.setCodigo_congreso(congreso);
-                }else {
-                nueva.setCodigo_congreso(null);
-                }
-                
+
+                nueva.setCodigo_congreso(congreso);
+
                 lista.add(nueva);//Se va llenando la lista con las institucionesde la BD
+                
+                
+                System.out.println("id administrador: " +nueva.getId_administrador());
+                System.out.println("nombre institucion: " + nueva.getNombre_institucion());
             }
         } catch (Exception e) {
             System.out.println("Error al enlistar las instituciones");

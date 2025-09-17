@@ -38,10 +38,10 @@
         </form>
 
 
-        <div class="container mt-4">
+        <%--<div>
             <h3>Instituciones Registradas</h3>
-            <table class="table table-striped table-bordered">
-                <thead class="table-dark">
+            <table>
+                <thead>
                     <tr>
                         <th>Codigo de congreso</th>
                         <th>ID del participante</th>
@@ -49,16 +49,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="inst" items="${listaInstituciones}">
+                    <%
+                    java.util.List<Institucion> instituciones = (java.util.List<Institucion>) request.getAttribute("listaInstituciones");
+                    
+                    if (instituciones != null){
+                        
+                        for(Institucion inst: instituciones){
+                    %>
                     <tr>
-                        <td>${inst.getCodigo_congreso()}</td>
-                        <td>${inst.getId_administrador()}</td>
-                        <td>${inst.getNombre_institucion()}</td>
+                        <td>${inst.Codigo_congreso}</td>
+                        <td>${inst.Id_administrador}</td>
+                        <td>${inst.Nombre_institucion}</td>
                     </tr>
-                </c:forEach>
+                    <%
+                        }
+                       }
+                    %>
                 </tbody>
             </table>
-        </div>
+        </div>--%>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
