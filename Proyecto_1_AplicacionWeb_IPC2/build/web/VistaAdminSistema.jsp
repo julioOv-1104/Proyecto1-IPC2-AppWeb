@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List" %>
+<%@page import="Entidades.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,7 +40,7 @@
         </form>
 
 
-        <%--<div>
+        <div>
             <h3>Instituciones Registradas</h3>
             <table>
                 <thead>
@@ -57,9 +59,9 @@
                         for(Institucion inst: instituciones){
                     %>
                     <tr>
-                        <td>${inst.Codigo_congreso}</td>
-                        <td>${inst.Id_administrador}</td>
-                        <td>${inst.Nombre_institucion}</td>
+                        <td><%= inst.getCodigo_congreso() %></td>
+                        <td><%= inst.getId_administrador() %></td>
+                        <td><%= inst.getNombre_institucion() %></td>
                     </tr>
                     <%
                         }
@@ -67,7 +69,7 @@
                     %>
                 </tbody>
             </table>
-        </div>--%>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
