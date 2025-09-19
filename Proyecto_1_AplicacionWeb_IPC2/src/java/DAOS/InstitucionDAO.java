@@ -11,7 +11,7 @@ public class InstitucionDAO {
     public List<Institucion> obtenerInstituciones() {
 
         List<Institucion> lista = new ArrayList<>();
-        String sql = "SELECT codigo_congreso, id_administrador, nombre_institucion FROM institucion";
+        String sql = "SELECT * FROM institucion";
         Connection conn = ConexionBD.getInstancia().getConexionbd();
 
         try {

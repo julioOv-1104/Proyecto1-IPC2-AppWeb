@@ -137,7 +137,7 @@ public class UsuarioDAO {
     public List<Usuario> obtenerTodosUsuarios(){
         List<Usuario> usuarioRegistrados = new ArrayList<>();
         
-        String sql = "SELECT id, institucion, nombre, correo FROM usuario";
+        String sql = "SELECT * FROM usuario";
         Connection conn = ConexionBD.getInstancia().getConexionbd();
         
         try {

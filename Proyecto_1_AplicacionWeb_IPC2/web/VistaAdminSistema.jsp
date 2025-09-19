@@ -63,6 +63,7 @@
                             <th>Codigo de congreso</th>
                             <th>ID del participante</th>
                             <th>Nombre</th>
+                            <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +78,9 @@
                             <td><%= inst.getCodigo_congreso() %></td>
                             <td><%= inst.getId_administrador() %></td>
                             <td><%= inst.getNombre_institucion() %></td>
+                            <td>
+                                <a href="CambiarNombreInstitucion.jsp?nombre= <%= inst.getNombre_institucion() %>">Cambiar nombre: <%= inst.getNombre_institucion() %></a>
+                            </td>
                         </tr>
                         <%
                             }
