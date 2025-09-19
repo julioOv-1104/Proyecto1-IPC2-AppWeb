@@ -41,8 +41,12 @@ public class AdminSistemaServlet extends HttpServlet {
 
         InstitucionDAO institucionDAO = new InstitucionDAO();
         List<Institucion> instituciones = institucionDAO.obtenerInstituciones();
+        
+        UsuarioDAO usuario = new UsuarioDAO();
+        List<Usuario> usuariosRegistrados = usuario.obtenerTodosUsuarios();
 
         request.setAttribute("listaInstituciones", instituciones);
+        request.setAttribute("ListaUsuarios", usuariosRegistrados);
 
         request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
 

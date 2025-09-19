@@ -29,9 +29,7 @@ public class InstitucionDAO {
 
                 lista.add(nueva);//Se va llenando la lista con las institucionesde la BD
                 
-                
-                System.out.println("id administrador: " +nueva.getId_administrador());
-                System.out.println("nombre institucion: " + nueva.getNombre_institucion());
+               
             }
         } catch (Exception e) {
             System.out.println("Error al enlistar las instituciones");

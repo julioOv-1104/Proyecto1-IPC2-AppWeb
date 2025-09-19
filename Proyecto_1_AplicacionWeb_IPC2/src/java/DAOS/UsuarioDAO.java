@@ -4,7 +4,7 @@ import Entidades.*;
 import java.sql.*;
 
 import Paquete_Servlets.ConexionBD;
-import java.util.Base64;
+import java.util.*;
 
 public class UsuarioDAO {
 
@@ -132,6 +132,34 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
         return tipoEncontrado;
+    }
+    
+    public List<Usuario> obtenerTodosUsuarios(){
+        List<Usuario> usuarioRegistrados = new ArrayList<>();
+        
+        String sql = "SELECT id, institucion, nombre, correo FROM usuario";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+        
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String inst = rs.getString("institucion");
+                String nombre = rs.getString("nombre");
+                String correo = rs.getString("correo");
+                
+                Usuario nuevo = new Usuario(id, inst, nombre, correo);
+                usuarioRegistrados.add(nuevo);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("ERROR AL CARGAR LOS USUARIOS EN PANTALLA");
+            e.printStackTrace();
+        }
+        
+    return usuarioRegistrados;
     }
 
 }

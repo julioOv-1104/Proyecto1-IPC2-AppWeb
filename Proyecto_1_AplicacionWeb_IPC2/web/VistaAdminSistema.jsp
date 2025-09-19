@@ -84,21 +84,40 @@
                         %>
                     </tbody>
                 </table>
+
+                <h3>Usuarios Registrados</h3>
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Institucion</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <%
+                        java.util.List<Usuario> usuariosR = (java.util.List<Usuario>) request.getAttribute("ListaUsuarios");
                     
-                    <table>
+                        if (usuariosR != null){
+                        
+                            for(Usuario u: usuariosR){
+                        %>
                         <tr>
-                            <th>Header</th>
-                            <th>Header2</th>
+                            <td><%= u.getId() %></td>
+                            <td><%= u.getInstitucion() %></td>
+                            <td><%= u.getNombre() %></td>
+                            <td><%= u.getCorreo() %></td>
                         </tr>
-                        <tr>
-                            <td>Cell1</td>
-                            <td>Cell2</td>
-                        </tr>
-                        <tr>
-                            <td>Cell3</td>
-                            <td>Cell4</td>
-                        </tr>
-                    </table>
+                        <%
+                            }
+                           }
+                        %>
+
+                    </tbody>
+
+                </table>
             </div>
         </div>
 
