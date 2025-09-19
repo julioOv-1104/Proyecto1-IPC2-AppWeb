@@ -19,6 +19,12 @@
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
                 height: 700px;
             }
+            
+            body{
+
+                min-height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+                margin: 0;
+            }
         </style>
 
 

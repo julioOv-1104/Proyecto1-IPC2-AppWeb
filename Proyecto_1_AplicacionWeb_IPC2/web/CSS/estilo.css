@@ -5,42 +5,44 @@
 */
 
 body {
-                height: 50vh;
-                display: flex;
-                justify-content: center;
-                align-content: center;
-                font-family: Arial, sans-serif;
-                background-color: #eef2f7;
-                padding: 200px;
-            }
-            form{
-                background: white;
-                padding: 10px 30px;
-                border-radius: 10px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            }
-            h2 {
-                color: darkblue;
-            }
-            h4 {
-                color: darkblue;
-            }
-            label {
-                display: block;
-                margin-top: 10px;
-                font-weight: bold;
-            }
-            input {
-                padding: 5px;
-                width: 250px;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-family: Arial, sans-serif;
+    background-color: #eef2f7;
+    padding: 200px;
+    min-height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+    margin: 0;
+    }
+    form{
+    background: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+    color: darkblue;
+    }
+    h4 {
+    color: darkblue;
+    }
+    label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    }
+    input {
+    padding: 5px;
+    width: 250px;
 
-            }
-            button {
-                margin-top: 15px;
-                padding: 8px 12px;
-                background-color: darkblue;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
+    }
+    button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    background-color: darkblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
