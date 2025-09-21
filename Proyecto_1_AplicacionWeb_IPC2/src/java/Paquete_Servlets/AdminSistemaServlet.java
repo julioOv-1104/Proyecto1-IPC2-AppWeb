@@ -50,17 +50,6 @@ public class AdminSistemaServlet extends HttpServlet {
 
         request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
 
-        /*PagoDAO pagoDao = new PagoDAO();
-
-        double totalRecaudado = pagoDao.obtenerPagos();
-        double porcentaje = 0.10;//Porcentaje de comision
-        double ganancia = totalRecaudado * porcentaje;//Ganancia total 
-
-        request.setAttribute("totalRecaudado", totalRecaudado);
-        request.setAttribute("porcentaje", porcentaje*100);
-        request.setAttribute("ganancia", ganancia);
-        
-        request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);*/
     }
 
 }

@@ -17,11 +17,8 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public Usuario(String id, String institucion, String nombre, String correo) {
-        this.id = id;
-        this.institucion = institucion;
-        this.nombre = nombre;
-        this.correo = correo;
+    public Usuario() {
+
     }
     
     

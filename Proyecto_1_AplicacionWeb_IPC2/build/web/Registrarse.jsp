@@ -19,7 +19,7 @@
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
                 height: 700px;
             }
-            
+
             body{
 
                 min-height: 100vh; /* Ocupa el 100% de la altura de la ventana */
@@ -38,6 +38,7 @@
 
 
         <form action="UsuarioServlet" method="post">
+            <input type="hidden" name="accion" value="Registrarse">
             <h4>Ingrese la informacion para crear un usuario</h4>
             <label>ID</label>
             <input type="text" name="IDcreado" placeholder="Obligatorio" required>
@@ -63,7 +64,6 @@
             <label>Tipo de usuario</label>
             <select name="tipoUsuario">
                 <option value="PARTICIPANTE">Participante</option>
-                <option value="ADMIN_CONGRESO">Administrador de congresos</option>
                 <option value="ADMIN_SISTEMA">Administrador del sistema</option>
             </select>
 
@@ -100,6 +100,31 @@
             </div>
         </div>
 
+        <div class="modal fade" id="exitoModal" tabindex="-1" aria-labelledby="exitoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Encabezado verde -->
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="exitoModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <!-- Mensaje desde el Servlet -->
+                    <div class="modal-body">
+                        <%= request.getAttribute("mensajeExito") %>
+                    </div>
+
+                    <!-- Botón para cerrar -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
         <% if (request.getAttribute("mensajeError") != null) { %>
@@ -107,7 +132,12 @@
             var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
             myModal.show();
         </script>
-        <% } %>
+        <% } else if(request.getAttribute("mensajeExito") != null){ %>
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('exitoModal'));
+            myModal.show()
+        </script>
+        <%}%>
 
     </body>
 </html>

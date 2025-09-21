@@ -16,7 +16,7 @@
     <body>
         <form action="action">
             <label>Cambiar nombre</label>
-            <input type="text" name="nombre" value="<%= inst.getNombre_institucion() %>">
+            <input type="text" name="nombre" value="0">
         </form>
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>

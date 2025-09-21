@@ -24,11 +24,10 @@
                 padding: 5px 30px;
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
-                height: 150px;
+
             }
 
             body{
-
                 min-height: 100vh; /* Ocupa el 100% de la altura de la ventana */
                 margin: 0;
             }
@@ -63,7 +62,6 @@
                             <th>Codigo de congreso</th>
                             <th>ID del participante</th>
                             <th>Nombre</th>
-                            <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,9 +76,6 @@
                             <td><%= inst.getCodigo_congreso() %></td>
                             <td><%= inst.getId_administrador() %></td>
                             <td><%= inst.getNombre_institucion() %></td>
-                            <td>
-                                <a href="CambiarNombreInstitucion.jsp?nombre= <%= inst.getNombre_institucion() %>">Cambiar nombre: <%= inst.getNombre_institucion() %></a>
-                            </td>
                         </tr>
                         <%
                             }
@@ -97,6 +92,7 @@
                             <th>Institucion</th>
                             <th>Nombre</th>
                             <th>Correo</th>
+                            <th>Tipo de usuario</th>
                         </tr>
                     </thead>
 
@@ -113,6 +109,7 @@
                             <td><%= u.getInstitucion() %></td>
                             <td><%= u.getNombre() %></td>
                             <td><%= u.getCorreo() %></td>
+                            <td><%= u.getTipo()%></td>
                         </tr>
                         <%
                             }
@@ -124,6 +121,116 @@
                 </table>
             </div>
         </div>
+
+
+        <form action="UsuarioServlet" method="post">
+            <input type="hidden" name="accion" value="CrearAdminCongreso">
+            <h3>Registrar Administardor de congresos</h3>
+            <label>ID</label><br>
+
+            <input type="text" name="IDcreado" placeholder="Obligatorio" required><br>
+
+            <label>Institucion</label><br>
+
+            <input type="text" name="Institucion" placeholder="Opcional" ><br>
+
+
+            <label>Nombre</label><br>
+
+            <input type="text" name="Nombre" placeholder="Obligatorio" required><br>
+
+
+            <label>Numero de telefono</label><br>
+            <input type="text" name="telefono" placeholder="Obligatorio" required><br>
+
+
+            <label>Correo electronico</label><br>
+
+            <input type="text" name="Email" placeholder="Obligatorio" required><br>
+
+
+            <label>URL de foto</label><br>
+
+            <input type="text" name="FOTO" placeholder="Opcional"><br>
+
+
+            <label>Contraseña</label><br>
+
+            <input type="text" name="Contraseña" placeholder="Obligatorio" required><br>
+
+
+            <label>Tipo de usuario</label><br>
+
+            <select name="tipoUsuario">
+                <option value="ADMIN_CONGRESO">Administrador de congresos</option>
+            </select>
+
+            <button>Registrar</button>
+        </form>
+
+
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Encabezado rojo con el título -->
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <!-- Se muestra el mensaje desde el Servlet -->
+                    <div class="modal-body">
+                        <%= request.getAttribute("mensajeError") %>
+                    </div>
+
+                    <!-- Botón para cerrar -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exitoModal" tabindex="-1" aria-labelledby="exitoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Encabezado verde -->
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="exitoModalLabel">Éxito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <!-- Mensaje desde el Servlet -->
+                    <div class="modal-body">
+                        <%= request.getAttribute("mensajeExito") %>
+                    </div>
+
+                    <!-- Botón para cerrar -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <% if (request.getAttribute("mensajeError") != null) { %>
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            myModal.show();
+        </script>
+        <% } else if(request.getAttribute("mensajeExito") != null){ %>
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('exitoModal'));
+            myModal.show()
+        </script>
+        <%}%>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

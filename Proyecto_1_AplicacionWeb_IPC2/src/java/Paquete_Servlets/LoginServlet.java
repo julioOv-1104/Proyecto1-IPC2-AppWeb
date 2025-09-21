@@ -44,12 +44,12 @@ public class LoginServlet extends HttpServlet {
                 
                 AdminSistemaServlet admin = new AdminSistemaServlet();
                 admin.mostrarInformacion(request, response);
-                //request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
 
             } else if (tipo.equals("ADMIN_CONGRESO")) {
 
 
-                 request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+                 AdminCongresoServlet admin = new AdminCongresoServlet();
+                 admin.mostrarInformacion(request, response);
 
             } else if (tipo.equals("PARTICIPANTE")) {
                 

@@ -8,14 +8,14 @@ import java.util.*;
 
 public class UsuarioDAO {
 
-    public boolean existeInstitucion(Usuario nuevoUsuario) {
+    public boolean existeInstitucion(String institucion) {
 
         String consulta = "SELECT 1 FROM institucion WHERE nombre_institucion = ?";
         Connection conn = ConexionBD.getInstancia().getConexionbd();
 
         try {
             PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setString(1, nuevoUsuario.getInstitucion());
+            ps.setString(1, institucion);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -149,8 +149,16 @@ public class UsuarioDAO {
                 String inst = rs.getString("institucion");
                 String nombre = rs.getString("nombre");
                 String correo = rs.getString("correo");
+                String tipoU = rs.getString("tipo_usuario");
                 
-                Usuario nuevo = new Usuario(id, inst, nombre, correo);
+                TipoUsuarios tipoEnum = TipoUsuarios.valueOf(tipoU);
+                
+                Usuario nuevo = new Usuario();
+                nuevo.setId(id);
+                nuevo.setInstitucion(inst);
+                nuevo.setNombre(nombre);
+                nuevo.setCorreo(correo);
+                nuevo.setTipo(tipoEnum);
                 usuarioRegistrados.add(nuevo);
             }
             
