@@ -10,12 +10,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="CSS/estilo.css"/><!-- se agrega el estilo -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Configuracion Congreso</title>
-        
+
         <style>
 
             #SalonForm{
@@ -26,7 +26,7 @@
                 height: 270px;
 
             }
-            
+
             #CongresoForm{
                 background: white;
                 padding: 5px 30px;
@@ -41,89 +41,130 @@
                 margin: 0;
             }
         </style>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        
+
     </head>
     <body>
         <h1>VISTA ADMIN_CONGRESO</h1>
-        
+
         <form action="SalonServlet" method="post" id="SalonForm">
             <h3>Registrar Salones</h3>
             <label>Nombre del salon</label>
             <input type="text" name="nombreSalon" placeholder="Obligatorio" required>
-            
-            <label>Nombre Institucion a la que pertenece</label>
+
+            <label>Institucion a la que pertenece</label>
             <input type="text" name="nombreInstitucion" placeholder="Obligatorio" required><br>
-            
+
             <button type="submit">Registrar</button> 
-            
+
         </form>
-        
+
         <form action="CongresoServlet" method="post" id="CongresoForm">
             <h3>Crear nuevo Congreso</h3>
             <label>Codigo congreso</label>
             <input type="text" name="codigo_congreso" placeholder="Obligatorio" required>
-            
+
             <label>Fecha inicio</label>
             <input type="date" name="fecha_inicio" placeholder="Obligatorio" required>
-            
+
             <label>Precio</label>
             <input type="number" name="precio" placeholder="Obligatorio" required>
-            
+
             <label>Institucion</label>
             <input type="text" name="institucion" placeholder="Obligatorio" required>
-            
+
             <label>Instalacion</label>
             <input type="text" name="instalacion" placeholder="Obligatorio" required><br>
-            
+
             <button type="submit">Crear</button>
         </form>
-        
-        
+
+
         <div>
-            
+
             <h3>Congresos Registrados</h3>
-                <table class="table table-bordered border-primary">
-                    <thead>
-                        <tr>
-                            <th>Codigo congreso</th>
-                            <th>Fecha inicio</th>
-                            <th>Precio</th>
-                            <th>Institucion</th>
-                            <th>Instalacion</th>
-                        </tr>
-                    </thead>
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th>Codigo congreso</th>
+                        <th>Fecha inicio</th>
+                        <th>Precio</th>
+                        <th>Institucion</th>
+                        <th>Instalacion</th>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        <%
-                        java.util.List<Congreso> listaCongreso = (java.util.List<Congreso>) request.getAttribute("ListaCongresos");
+                <tbody>
+                    <%
+                    java.util.List<Congreso> listaCongreso = (java.util.List<Congreso>) request.getAttribute("ListaCongresos");
                     
-                        if (listaCongreso != null){
+                    if (listaCongreso != null){
                         
-                            for(Congreso c: listaCongreso){
-                        %>
-                        <tr>
-                            <td><%= c.getCodigoCongreso() %></td>
-                            <td><%= c.getFechaInicio() %></td>
-                            <td><%= c.getPrecio() %></td>
-                            <td><%= c.getInstitucion() %></td>
-                            <td><%= c.getInstalacion() %></td>
-                        </tr>
-                        <%
-                            }
-                           }
-                        %>
+                        for(Congreso c: listaCongreso){
+                    %>
+                    <tr>
+                        <td><%= c.getCodigoCongreso() %></td>
+                        <td><%= c.getFechaInicio() %></td>
+                        <td><%= c.getPrecio() %></td>
+                        <td><%= c.getInstitucion() %></td>
+                        <td><%= c.getInstalacion() %></td>
+                    </tr>
+                    <%
+                        }
+                       }
+                    %>
 
-                    </tbody>
+                </tbody>
 
-                </table>
-            
+            </table>
+
         </div>
-        
-        
-        
+
+
+        <div>
+
+            <h3>Salones Registrados</h3>
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th>Codigo congreso</th>
+                        <th>Fecha inicio</th>
+                        <th>Precio</th>
+                        <th>Institucion</th>
+                        <th>Instalacion</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <%
+                    java.util.List<Congreso> listaCongreso = (java.util.List<Congreso>) request.getAttribute("ListaCongresos");
+                    
+                    if (listaCongreso != null){
+                        
+                        for(Congreso c: listaCongreso){
+                    %>
+                    <tr>
+                        <td><%= c.getCodigoCongreso() %></td>
+                        <td><%= c.getFechaInicio() %></td>
+                        <td><%= c.getPrecio() %></td>
+                        <td><%= c.getInstitucion() %></td>
+                        <td><%= c.getInstalacion() %></td>
+                    </tr>
+                    <%
+                        }
+                       }
+                    %>
+
+                </tbody>
+
+            </table>
+
+        </div>                
+
+
+
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -186,7 +227,7 @@
             myModal.show()
         </script>
         <%}%>
-        
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
