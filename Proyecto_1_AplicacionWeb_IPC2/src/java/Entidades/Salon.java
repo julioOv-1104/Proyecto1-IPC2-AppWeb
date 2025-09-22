@@ -2,11 +2,12 @@
 package Entidades;
 
 public class Salon {
-    private String nombreSalon, nombreInstitucion;
+    private String nombreSalon, nombreInstalacion, codigoActividad;
 
-    public Salon(String nombreSalon, String nombreInstitucion) {
+    public Salon(String nombreSalon, String nombreInstitucion, String codigoActividad) {
         this.nombreSalon = nombreSalon;
-        this.nombreInstitucion = nombreInstitucion;
+        this.nombreInstalacion = nombreInstitucion;
+        this.codigoActividad = codigoActividad;
     }
 
     public String getNombreSalon() {
@@ -17,12 +18,20 @@ public class Salon {
         this.nombreSalon = nombreSalon;
     }
 
-    public String getNombreInstitucion() {
-        return nombreInstitucion;
+    public String getNombreInstalacion() {
+        return nombreInstalacion;
     }
 
-    public void setNombreInstitucion(String nombreInstitucion) {
-        this.nombreInstitucion = nombreInstitucion;
+    public void setNombreInstalacion(String nombreInstalacion) {
+        this.nombreInstalacion = nombreInstalacion;
+    }
+
+    public String getCodigoActividad() {
+        return codigoActividad;
+    }
+
+    public void setCodigoActividad(String codigoActividad) {
+        this.codigoActividad = codigoActividad;
     }
     
     

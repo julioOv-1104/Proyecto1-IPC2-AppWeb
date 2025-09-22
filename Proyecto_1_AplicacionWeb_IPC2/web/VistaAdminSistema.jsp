@@ -19,11 +19,23 @@
 
         <style>
 
-            form{
+            #PorcentajeForm{
                 background: white;
                 padding: 5px 30px;
                 border-radius: 10px;
                 box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                height: 140px;
+                width: 350px;
+
+            }
+
+            #AdminCongresosForm{
+                background: white;
+                padding: 5px 30px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                height: 730px;
+                width: 300px;
 
             }
 
@@ -42,13 +54,14 @@
         <div class="row">
             <div class="col-7"> 
                 <h1>VISTA DEL ADMIN_SISTEMA</h1>
+                <a href="Login.jsp">Salir de la vista del administrador del sistema</a>
                 <p>Total de dinero recaudado: Q<%= request.getAttribute("totalRecaudado") %></p>
                 <p>Ganancia: Q<%= request.getAttribute("ganancia") %></p>
                 <p>Porcentaje aplicado: <%= request.getAttribute("porcentaje")%>%</p>
             </div>
 
             <div class="col-7">
-                <form action="AdminSistemaServlet" method="post">
+                <form action="AdminSistemaServlet" method="post" id="PorcentajeForm">
                     <label>Cambiar porcentaje de comision</label>
                     <input type="number" name="porcentajeCambiado" step="any" min="0.1" max="0.5" required>
                     <button type="submit">Aceptar</button><br>
@@ -76,6 +89,34 @@
                             <td><%= inst.getCodigo_congreso() %></td>
                             <td><%= inst.getId_administrador() %></td>
                             <td><%= inst.getNombre_institucion() %></td>
+                        </tr>
+                        <%
+                            }
+                           }
+                        %>
+                    </tbody>
+                </table>
+                    
+                    
+                    <h3>Instalaciones Registradas</h3>
+                <table class="table table-bordered border-primary">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Congreso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                        java.util.List<Instalacion> instalaciones = (java.util.List<Instalacion>) request.getAttribute("ListaInstalaciones");
+                    
+                        if (instalaciones != null){
+                        
+                            for(Instalacion insta: instalaciones){
+                        %>
+                        <tr>
+                            <td><%= insta.getNombreInstalacion() %></td>
+                            <td><%= insta.getCodigoCongreso() %></td>
                         </tr>
                         <%
                             }
@@ -120,53 +161,70 @@
 
                 </table>
             </div>
+
+            <div class="col-7">
+
+                <form action="UsuarioServlet" method="post" id="AdminCongresosForm">
+                    <input type="hidden" name="accion" value="CrearAdminCongreso">
+                    <h3>Registrar Administardor de congresos</h3>
+                    <label>ID</label><br>
+
+                    <input type="text" name="IDcreado" placeholder="Obligatorio" required><br>
+
+                    <label>Institucion</label><br>
+
+                    <input type="text" name="Institucion" placeholder="Opcional" ><br>
+
+
+                    <label>Nombre</label><br>
+
+                    <input type="text" name="Nombre" placeholder="Obligatorio" required><br>
+
+
+                    <label>Numero de telefono</label><br>
+                    <input type="text" name="telefono" placeholder="Obligatorio" required><br>
+
+
+                    <label>Correo electronico</label><br>
+
+                    <input type="text" name="Email" placeholder="Obligatorio" required><br>
+
+
+                    <label>URL de foto</label><br>
+
+                    <input type="text" name="FOTO" placeholder="Opcional"><br>
+
+
+                    <label>Contraseña</label><br>
+
+                    <input type="text" name="Contraseña" placeholder="Obligatorio" required><br>
+
+
+                    <label>Tipo de usuario</label><br>
+
+                    <select name="tipoUsuario">
+                        <option value="ADMIN_CONGRESO">Administrador de congresos</option>
+                    </select>
+
+                    <button type="submit">Registrar</button>
+                </form>
+
+            </div>
+        </div>
+
+        <div>
+            <form action="InstalacionServlet" method="post">
+
+                <h3>Registrar Instalaciones</h3>
+                <label>Nombre</label>
+                <input type="text" name="nombre" placeholder="Obligatorio" required>
+                <button type="submit">Registrar</button>
+
+            </form>
         </div>
 
 
-        <form action="UsuarioServlet" method="post">
-            <input type="hidden" name="accion" value="CrearAdminCongreso">
-            <h3>Registrar Administardor de congresos</h3>
-            <label>ID</label><br>
 
-            <input type="text" name="IDcreado" placeholder="Obligatorio" required><br>
-
-            <label>Institucion</label><br>
-
-            <input type="text" name="Institucion" placeholder="Opcional" ><br>
-
-
-            <label>Nombre</label><br>
-
-            <input type="text" name="Nombre" placeholder="Obligatorio" required><br>
-
-
-            <label>Numero de telefono</label><br>
-            <input type="text" name="telefono" placeholder="Obligatorio" required><br>
-
-
-            <label>Correo electronico</label><br>
-
-            <input type="text" name="Email" placeholder="Obligatorio" required><br>
-
-
-            <label>URL de foto</label><br>
-
-            <input type="text" name="FOTO" placeholder="Opcional"><br>
-
-
-            <label>Contraseña</label><br>
-
-            <input type="text" name="Contraseña" placeholder="Obligatorio" required><br>
-
-
-            <label>Tipo de usuario</label><br>
-
-            <select name="tipoUsuario">
-                <option value="ADMIN_CONGRESO">Administrador de congresos</option>
-            </select>
-
-            <button>Registrar</button>
-        </form>
 
 
         <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">

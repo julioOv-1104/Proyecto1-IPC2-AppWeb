@@ -31,7 +31,7 @@ public class CongresoServlet extends HttpServlet {
 
         if (codigoCongreso.isEmpty() || fechaInicio.isEmpty() || precio.isEmpty() || instalacion.isEmpty() || institucion.isEmpty()) {
             request.setAttribute("mensajeError", "Debe llenar todos los campos");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+            reiniciarVista(request, response);
             return;
         }
 
@@ -40,27 +40,33 @@ public class CongresoServlet extends HttpServlet {
         if (!usuarioDao.existeInstitucion(institucion)) {
             //Si la institucion SI existe
             request.setAttribute("mensajeError", "La institucion no está registrada");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+            reiniciarVista(request, response);
             return;
 
         }
         if (!congresoDao.buscarInstalacion(instalacion)) {
             //Si la instalacion SI existe
             request.setAttribute("mensajeError", "La instalacion no está registrada");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+            reiniciarVista(request, response);
             return;
         }
         if (congresoDao.buscarCongreso(codigoCongreso)) {
             //Si YA existe el congreso
             request.setAttribute("mensajeError", "Ya existe este congreso");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+            reiniciarVista(request, response);
             return;
         }
 
         congresoDao.registrarCongreso(nuevoCongreso);
         request.setAttribute("mensajeExito", "Congreso registrado con exito");
-        request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+        reiniciarVista(request, response);
         return;
+    }
+    
+    private void reiniciarVista(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+
+        AdminCongresoServlet admin = new AdminCongresoServlet();
+        admin.mostrarInformacion(request, response);
     }
     
     

@@ -1,7 +1,7 @@
 package Paquete_Servlets;
 
 import DAOS.UsuarioDAO;
-import Entidades.TipoUsuarios;
+import Entidades.EnumTipoUsuarios;
 import Entidades.Usuario;
 import java.util.Base64;
 import jakarta.servlet.ServletException;
@@ -52,7 +52,7 @@ public class UsuarioServlet extends HttpServlet {
         //se codifica la contraseña
         String contrasennaCodificada = Base64.getEncoder().encodeToString(Contrasenna.getBytes());
         System.out.println("Contraseña codificada: " + contrasennaCodificada);
-        TipoUsuarios tipo = decidirTipo(tipoDeUsuario);//elige el tipo de usuario
+        EnumTipoUsuarios tipo = decidirTipo(tipoDeUsuario);//elige el tipo de usuario
 
         //Crea un nuevo usuario con los datos obtenidos
         Usuario nuevoUsuario = new Usuario(IDcreado, Nombre, telefono, Email, monederoUsuarios, tipo, contrasennaCodificada);
@@ -117,7 +117,7 @@ public class UsuarioServlet extends HttpServlet {
         //se codifica la contraseña
         String contrasennaCodificada = Base64.getEncoder().encodeToString(Contrasenna.getBytes());
         System.out.println("Contraseña codificada: " + contrasennaCodificada);
-        TipoUsuarios tipo = TipoUsuarios.ADMIN_CONGRESO;
+        EnumTipoUsuarios tipo = EnumTipoUsuarios.ADMIN_CONGRESO;
 
         //Crea un nuevo usuario con los datos obtenidos
         Usuario nuevoUsuario = new Usuario(IDcreado, Nombre, telefono, Email, monederoUsuarios, tipo, contrasennaCodificada);
@@ -158,18 +158,18 @@ public class UsuarioServlet extends HttpServlet {
         }
 
         request.setAttribute("mensajeExito", "El administrador de congresos ha sido registrado");
-        request.getRequestDispatcher("Registrarse.jsp").forward(request, response);
+        request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
     }
 
-    private TipoUsuarios decidirTipo(String tipoUsuario) {
-        TipoUsuarios tipo = TipoUsuarios.ADMIN_SISTEMA;
+    private EnumTipoUsuarios decidirTipo(String tipoUsuario) {
+        EnumTipoUsuarios tipo = EnumTipoUsuarios.ADMIN_SISTEMA;
 
         if (tipoUsuario.equals("ADMIN_SISTEMA")) {
-            tipo = TipoUsuarios.ADMIN_SISTEMA;
+            tipo = EnumTipoUsuarios.ADMIN_SISTEMA;
         } else if (tipoUsuario.equals("ADMIN_CONGRESO")) {
-            tipo = TipoUsuarios.ADMIN_CONGRESO;
+            tipo = EnumTipoUsuarios.ADMIN_CONGRESO;
         } else if (tipoUsuario.equals("PARTICIPANTE")) {
-            tipo = TipoUsuarios.PARTICIPANTE;
+            tipo = EnumTipoUsuarios.PARTICIPANTE;
         }
 
         return tipo;

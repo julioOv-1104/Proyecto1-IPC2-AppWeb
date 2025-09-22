@@ -11,44 +11,49 @@ import java.io.IOException;
 
 @WebServlet("/SalonServlet")
 public class SalonServlet extends HttpServlet {
-    
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         SalonDAO salonDao = new SalonDAO();
-        UsuarioDAO usuarioDao = new UsuarioDAO();
-        
+
         String nombre = request.getParameter("nombreSalon");
-        String institucion = request.getParameter("nombreInstitucion");
-        
-        if (nombre.isBlank() || institucion.isBlank()) {
+        String instalacion = request.getParameter("nombreInstalacion");
+
+        if (nombre.isBlank() || instalacion.isBlank()) {
             request.setAttribute("mensajeError", "Deve llenar todos los campos");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+            reiniciarVista(request, response);
             return;
         }
-        
-        Salon nuevoSalon = new Salon(nombre, institucion);
-        
-        if (!usuarioDao.existeInstitucion(institucion)) {//revisa si la institucion existe
+
+        Salon nuevoSalon = new Salon(nombre, instalacion, "");
+
+        if (!salonDao.existeInstalacion(instalacion)) {//revisa si la instalacion existe
             //si NO existe
-            request.setAttribute("mensajeError", "Esta institucion no está registrada");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
+            request.setAttribute("mensajeError", "Esta instalacion no está registrada");
+            reiniciarVista(request, response);
             return;
-        }else{
-        //Si SI existe
+        } else {
+            //Si SI existe
             if (!salonDao.buscarSalon(nuevoSalon)) {
                 //No hay ningun salon con ese nombre
                 salonDao.registrarSalon(nuevoSalon);
                 request.setAttribute("mensajeExito", "Salon registrado con exito");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
-            return;
-            }else{
-            request.setAttribute("mensajeError", "Este salon ya está registrado");
-            request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);
-            return;
+                reiniciarVista(request, response);
+                return;
+            } else {
+                request.setAttribute("mensajeError", "Este salon ya está registrado");
+                reiniciarVista(request, response);
+                return;
             }
         }
-        
+
     }
-    
+
+    private void reiniciarVista(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+
+        AdminCongresoServlet admin = new AdminCongresoServlet();
+        admin.mostrarInformacion(request, response);
+    }
+
 }

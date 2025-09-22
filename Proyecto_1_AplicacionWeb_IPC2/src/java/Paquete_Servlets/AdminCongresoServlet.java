@@ -19,10 +19,17 @@ public class AdminCongresoServlet extends HttpServlet{
 
 
         CongresoDAO congresoDao = new CongresoDAO();
+        SalonDAO salonDao = new SalonDAO();
+        ActividadDAO actividadDao = new ActividadDAO();
+        
         List<Congreso> congresos = congresoDao.obtenerCongresos();
+        List<Salon> salones = salonDao.obtenerSalones();
+        List<Actividad> actividades = actividadDao.obtenerActividades();
         
 
         request.setAttribute("ListaCongresos", congresos);
+        request.setAttribute("ListaSalones", salones);
+        request.setAttribute("ListaActividades", actividades);
 
 
         request.getRequestDispatcher("VistaAdminCongreso.jsp").forward(request, response);

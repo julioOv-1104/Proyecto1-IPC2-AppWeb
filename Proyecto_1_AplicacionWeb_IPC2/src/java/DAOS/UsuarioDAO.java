@@ -27,6 +27,8 @@ public class UsuarioDAO {
             }
 
         } catch (Exception e) {
+            System.out.println("ERROR AL BUSCAR INSTITUCION");
+            e.printStackTrace();
         }
 
         return false;
@@ -124,7 +126,7 @@ public class UsuarioDAO {
 
             if (rs.next()) {
                 tipoEncontrado = rs.getString("tipo_usuario");
-                
+
             }
 
         } catch (SQLException e) {
@@ -133,26 +135,26 @@ public class UsuarioDAO {
         }
         return tipoEncontrado;
     }
-    
-    public List<Usuario> obtenerTodosUsuarios(){
+
+    public List<Usuario> obtenerTodosUsuarios() {
         List<Usuario> usuarioRegistrados = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM usuario";
         Connection conn = ConexionBD.getInstancia().getConexionbd();
-        
+
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 String id = rs.getString("id");
                 String inst = rs.getString("institucion");
                 String nombre = rs.getString("nombre");
                 String correo = rs.getString("correo");
                 String tipoU = rs.getString("tipo_usuario");
-                
-                TipoUsuarios tipoEnum = TipoUsuarios.valueOf(tipoU);
-                
+
+                EnumTipoUsuarios tipoEnum = EnumTipoUsuarios.valueOf(tipoU);
+
                 Usuario nuevo = new Usuario();
                 nuevo.setId(id);
                 nuevo.setInstitucion(inst);
@@ -161,13 +163,39 @@ public class UsuarioDAO {
                 nuevo.setTipo(tipoEnum);
                 usuarioRegistrados.add(nuevo);
             }
-            
+
         } catch (Exception e) {
             System.out.println("ERROR AL CARGAR LOS USUARIOS EN PANTALLA");
             e.printStackTrace();
         }
-        
-    return usuarioRegistrados;
+
+        return usuarioRegistrados;
+    }
+
+    public boolean comprobarEncargado(String id) {
+
+        String consulta = "SELECT 1 FROM usuario WHERE id = ? AND tipo_usuario = 'ADMIN_CONGRESO'";
+        //erifica que exista un usuario con ese id y que sea admin de congresos
+
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(consulta);
+            ps.setString(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+            return false;
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL VERIFICAR USUARIO Y ROL");
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
