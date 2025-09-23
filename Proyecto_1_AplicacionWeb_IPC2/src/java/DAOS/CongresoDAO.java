@@ -106,4 +106,63 @@ public class CongresoDAO {
         return lista;
     }
 
+    public boolean validarPagoSuficiente(String codigoCongreso, double monto) {//monto es lo que el usuario está pagando
+
+        String consulta = "SELECT precio FROM congreso WHERE codigo_congreso = ?";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+        double precio = 0;
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(consulta);
+            ps.setString(1, codigoCongreso);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                precio = rs.getDouble("precio");
+                System.out.println("El precio del congreso es " + precio);
+            }
+
+            if (monto == precio) {//si es mayor o menor no deja pagar
+                System.out.println("EL MONTO ES SUFICIENTE");
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL BUSCAR CONGRESO");
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    public boolean comprobarFechacongresoPago(String codigoCongreso, LocalDate fechaIngresada) {
+
+        String consulta = "SELECT fecha_inicio FROM congreso WHERE codigo_congreso = ?";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+        LocalDate fechaCongreso = LocalDate.MIN;
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(consulta);
+            ps.setString(1, codigoCongreso);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                fechaCongreso = LocalDate.parse(rs.getString("fecha_inicio"));
+                System.out.println("La fecha del congreso es " + fechaCongreso);
+
+                if (!fechaIngresada.isAfter(fechaCongreso)) {//si la fecha de pago es antes que termine el congreso
+                    System.out.println("LA FECHA INGRESADA ES LOGICA");
+                    return true;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL COMPROBAR FECHAS DE CONGRESO");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

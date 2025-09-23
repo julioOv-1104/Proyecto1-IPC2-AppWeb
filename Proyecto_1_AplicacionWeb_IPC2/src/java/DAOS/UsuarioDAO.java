@@ -6,7 +6,7 @@ import java.sql.*;
 import Paquete_Servlets.ConexionBD;
 import java.util.*;
 
-public class UsuarioDAO {
+public class UsuarioDAO extends DAO{
 
     public boolean existeInstitucion(String institucion) {
 
@@ -106,6 +106,8 @@ public class UsuarioDAO {
             }
 
         } catch (Exception e) {
+            System.out.println("ERROR AL INICIAR SECION");
+            e.printStackTrace();
         }
         return false;
     }
@@ -196,6 +198,95 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean comprobarMonederoSuficiente(String idUsuario, double monto) {
+
+        String consulta = "SELECT monedero FROM usuario WHERE id = ?";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+        double monedero = 0;
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(consulta);
+            ps.setString(1, idUsuario);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                monedero = rs.getDouble("monedero");
+                System.out.println("El moneder del usuario tiene " + monedero);
+            }
+            if (monedero >= monto) {//si el usuario tiene dinero suficiente
+                System.out.println("TIENE SUFICIENTE DINERO");
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL COMPROBAR MONEDERO DE USUARIO");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public void recargarCartera(double recarga, String id) {
+
+        String sql = "UPDATE usuario SET monedero = monedero + ? WHERE id = ?";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setDouble(1, recarga);
+            ps.setString(2, id);
+            ps.executeUpdate();
+
+            System.out.println("SQL = " + ps);
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL RECARGAR EL MONEDERO");
+            e.printStackTrace();
+        }
+
+    }
+
+    public void cobrarPago(double monto, String id) {
+
+        String sql = "UPDATE usuario SET monedero = monedero - ? WHERE id = ?";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setDouble(1, monto);
+            ps.setString(2, id);
+            ps.executeUpdate();
+
+            System.out.println("SQL = " + ps);
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL REALIZAR PAGO");
+            e.printStackTrace();
+        }
+
+    }
+
+    public String obtenerNombreUsuario() {
+
+        String sql = "SELECT nombre FROM usuario";
+        String nombreEncontrado = "";
+        Connection conn = ConexionBD.getInstancia().getConexionbd();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nombreEncontrado = rs.getString("nombre");
+            }
+
+        } catch (Exception e) {
+            System.out.println("ERROR AL OBTENER PAGOS");
+            e.printStackTrace();
+        }
+        return nombreEncontrado;
     }
 
 }

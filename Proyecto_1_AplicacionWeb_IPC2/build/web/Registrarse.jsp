@@ -59,7 +59,7 @@
             <input type="text" name="FOTO" placeholder="Opcional">
 
             <label>Contraseña</label>
-            <input type="text" name="Contraseña" placeholder="Obligatorio" required>
+            <input type="password" name="Contraseña" placeholder="Obligatorio" required>
 
             <label>Tipo de usuario</label>
             <select name="tipoUsuario">

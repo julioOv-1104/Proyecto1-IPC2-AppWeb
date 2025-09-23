@@ -34,7 +34,7 @@
             <input type="text" name="userID" required>
 
             <label>Contraseña</label>
-            <input type="text" name="userPassword" required>
+            <input type="password" name="userPassword" required>
 
             <button type="submit">Aceptar</button><br>
             <a href="Registrarse.jsp">¿No tienes un usuario? Registrarse</a>

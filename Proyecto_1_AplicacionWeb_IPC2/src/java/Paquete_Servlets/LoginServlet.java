@@ -1,7 +1,6 @@
 package Paquete_Servlets;
 
 import DAOS.*;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -26,7 +25,7 @@ public class LoginServlet extends HttpServlet {
             autenticarTipoUsuario(idUsuario, contraseñaCodificada, request, response);
 
         } else {
-            request.setAttribute("mensajeError", "Contraeña o ID invalido");
+            request.setAttribute("mensajeError", "Error en contraeña o ID");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
             return;
         }
@@ -41,24 +40,24 @@ public class LoginServlet extends HttpServlet {
         try {
 
             if (tipo.equals("ADMIN_SISTEMA")) {
-                
+
                 AdminSistemaServlet admin = new AdminSistemaServlet();
                 admin.mostrarInformacion(request, response);
 
             } else if (tipo.equals("ADMIN_CONGRESO")) {
 
-
-                 AdminCongresoServlet admin = new AdminCongresoServlet();
-                 admin.mostrarInformacion(request, response);
+                AdminCongresoServlet admin = new AdminCongresoServlet();
+                admin.mostrarInformacion(request, response);
 
             } else if (tipo.equals("PARTICIPANTE")) {
-                
-                 request.getRequestDispatcher("VistaParticipante.jsp").forward(request, response);
+
+                VistaParticipanteServlet vista = new VistaParticipanteServlet();
+                vista.mostrarVistaParticipante(request, response);
 
             }
 
         } catch (Exception e) {
-            System.out.println("ERROR AL REDIRIGIR AL USUARIO " +e.getMessage());
+            System.out.println("ERROR AL REDIRIGIR AL USUARIO " + e.getMessage());
             e.printStackTrace();
         }
 

@@ -197,7 +197,7 @@
 
                     <label>Contraseña</label><br>
 
-                    <input type="text" name="Contraseña" placeholder="Obligatorio" required><br>
+                    <input type="password" name="Contraseña" placeholder="Obligatorio" required><br>
 
 
                     <label>Tipo de usuario</label><br>

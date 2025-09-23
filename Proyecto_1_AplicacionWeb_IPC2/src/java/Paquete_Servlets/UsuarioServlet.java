@@ -19,7 +19,7 @@ public class UsuarioServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String accion = request.getParameter("accion");
+        String accion = request.getParameter("accion");//identifica quien es el que está llamando al metodo
 
         if ("CrearAdminCongreso".equals(accion)) {
             //Es un admin del sistema el que está accediendo al metodo
@@ -27,6 +27,9 @@ public class UsuarioServlet extends HttpServlet {
         } else if ("Registrarse".equals(accion)) {
             //Se está creando un usuario normal o admin de 
             crearUsuario(request, response);
+        } else if ("recargarDinero".equals(accion)) {
+            //se está cargando dinero al monedero del usuario
+            cargarDinero(request, response);
         }
 
     }
@@ -159,6 +162,39 @@ public class UsuarioServlet extends HttpServlet {
 
         request.setAttribute("mensajeExito", "El administrador de congresos ha sido registrado");
         request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
+    }
+
+    private void cargarDinero(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        UsuarioDAO user = new UsuarioDAO();
+        String id = request.getParameter("id");
+        double recarga = Double.parseDouble(request.getParameter("recarga"));
+
+        if (id.isEmpty()) {
+            request.setAttribute("mensajeError", "Ingrese el ID");
+            reiniciarVista(request, response);
+            return;
+        }
+
+        if (user.buscarPorParametro("usuario", "id", id)) {//si el usuario existe realiza la recarga
+            user.recargarCartera(recarga, id);
+            reiniciarVista(request, response);
+            return;
+
+        } else {
+
+            request.setAttribute("mensajeError", "El usuario no existe");
+            reiniciarVista(request, response);
+            return;
+        }
+
+    }
+
+    private void reiniciarVista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        VistaParticipanteServlet vista = new VistaParticipanteServlet();
+        vista.mostrarVistaParticipante(request, response);
+
     }
 
     private EnumTipoUsuarios decidirTipo(String tipoUsuario) {
