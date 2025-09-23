@@ -26,7 +26,9 @@ CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 CREATE TABLE IF NOT EXISTS congreso(
 codigo_congreso VARCHAR(20) NOT NULL,
 fecha_inicio DATE NOT NULL,
-precio DOUBLE NOT NULL,
+precio DOUBLE NOT NULL DEFAULT 35,
+institucion VARCHAR(100) NOT NULL,
+instalacion VARCHAR(100) NOT NULL,
 CONSTRAINT pk_codigo_congreso PRIMARY KEY (codigo_congreso)
 );
 
@@ -72,18 +74,18 @@ CONSTRAINT fk_id_usuario_inscripcion FOREIGN KEY (id_usuario) REFERENCES usuario
  CONSTRAINT fk_id_administrador FOREIGN KEY (id_administrador) REFERENCES usuario(id)
  );
  
- CREATE TABLE IF NOT EXISTS salones(
- nombre_salon VARCHAR(100) NOT NULL,
- institucion VARCHAR(100) NOT NULL,
- CONSTRAINT pk_nombre_salon PRIMARY KEY (nombre_salon),
- CONSTRAINT fk_institucion FOREIGN KEY (institucion) REFERENCES institucion(nombre_institucion)
- );
- 
  CREATE TABLE IF NOT EXISTS instalacion(
  nombre VARCHAR(100) NOT NULL,
  codigo_congreso VARCHAR(20),
  CONSTRAINT pk_nombre PRIMARY KEY (nombre),
  CONSTRAINT fk_codigo_congreso_instalacion FOREIGN KEY (codigo_congreso) REFERENCES congreso(codigo_congreso)
+ );
+ 
+ CREATE TABLE IF NOT EXISTS salones(
+ nombre_salon VARCHAR(100) NOT NULL,
+ instalacion VARCHAR(100) NOT NULL,
+ CONSTRAINT pk_nombre_salon PRIMARY KEY (nombre_salon),
+ CONSTRAINT fk_instalacion_salones FOREIGN KEY (instalacion) REFERENCES instalacion(nombre)
  );
  
  CREATE TABLE IF NOT EXISTS diploma(

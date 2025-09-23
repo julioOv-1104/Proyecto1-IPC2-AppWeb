@@ -5,9 +5,9 @@ public class Usuario {
     
     private String id,institucion, nombre,numero_telefonico,correo,foto, password;
     private double monedero;
-    private TipoUsuarios tipo;
+    private EnumTipoUsuarios tipo;
 
-    public Usuario(String id, String nombre, String numero_telefonico, String correo,  double monedero,  TipoUsuarios tipo, String password) {
+    public Usuario(String id, String nombre, String numero_telefonico, String correo,  double monedero,  EnumTipoUsuarios tipo, String password) {
         this.id = id;
         this.nombre = nombre;
         this.numero_telefonico = numero_telefonico;
@@ -16,6 +16,12 @@ public class Usuario {
         this.monedero = monedero;
         this.tipo = tipo;
     }
+
+    public Usuario() {
+
+    }
+    
+    
 
     public String getId() {
         return id;
@@ -81,11 +87,11 @@ public class Usuario {
         this.monedero = monedero;
     }
 
-    public TipoUsuarios getTipo() {
+    public EnumTipoUsuarios getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoUsuarios tipo) {
+    public void setTipo(EnumTipoUsuarios tipo) {
         this.tipo = tipo;
     }
     

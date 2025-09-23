@@ -41,22 +41,19 @@ public class AdminSistemaServlet extends HttpServlet {
 
         InstitucionDAO institucionDAO = new InstitucionDAO();
         List<Institucion> instituciones = institucionDAO.obtenerInstituciones();
+        
+        UsuarioDAO usuario = new UsuarioDAO();
+        List<Usuario> usuariosRegistrados = usuario.obtenerTodosUsuarios();
+        
+        InstalacionDAO insta = new InstalacionDAO();
+        List<Instalacion> instalaciones = insta.obtenerInstalaciones();
 
         request.setAttribute("listaInstituciones", instituciones);
+        request.setAttribute("ListaUsuarios", usuariosRegistrados);
+        request.setAttribute("ListaInstalaciones", instalaciones);
 
         request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);
 
-        /*PagoDAO pagoDao = new PagoDAO();
-
-        double totalRecaudado = pagoDao.obtenerPagos();
-        double porcentaje = 0.10;//Porcentaje de comision
-        double ganancia = totalRecaudado * porcentaje;//Ganancia total 
-
-        request.setAttribute("totalRecaudado", totalRecaudado);
-        request.setAttribute("porcentaje", porcentaje*100);
-        request.setAttribute("ganancia", ganancia);
-        
-        request.getRequestDispatcher("VistaAdminSistema.jsp").forward(request, response);*/
     }
 
 }

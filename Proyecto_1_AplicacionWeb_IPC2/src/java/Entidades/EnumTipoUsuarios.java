@@ -1,7 +1,7 @@
 
 package Entidades;
 
-public enum TipoUsuarios {
+public enum EnumTipoUsuarios {
     
     ADMIN_SISTEMA,
     ADMIN_CONGRESO,
